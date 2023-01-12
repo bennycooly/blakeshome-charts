@@ -115,6 +115,13 @@ spec:
             {{- if .Values.resources }}
             {{- toYaml .Values.resources | nindent 12 }}
             {{- end }}
+        {{- with .Values.extraContainers }}
+          {{- tpl (toYaml .) $ | nindent 10 }}
+        {{- end }}
+      {{- with .Values.initContainers }}
+      initContainers:
+        {{- tpl (toYaml .) $ | nindent 8 }}
+      {{- end }}
       volumes:
         - name: config
           configMap:
